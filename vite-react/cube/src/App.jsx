@@ -1,10 +1,25 @@
-import {useRef, useState} from "react";
+import React, {useState} from "react";
 import HomePage from "./HomePage.jsx";
 import CubeScanner from "./CubeScanner.jsx"
+import ViewCube from "./ViewCube.jsx";
 
 export default function App() {
-  const [scanning, setScanning] = useState(false);
-  return scanning ? <CubeScanner onFinish={(colors) => console.log("Scanned colors: ", colors)}/> : <HomePage onScan={() => setScanning(true)}/>;
+  const [page, setPage] = useState("home");
+  const [cubeColors, setCubeColors] = useState(null);
+
+  const startScan = () => setPage("scan");
+  const handleFinish = (colors) => {
+    setCubeColors(colors);
+    setPage("view");
+  }
+
+  if (page === "home") {
+    return <HomePage onScan={startScan}/>
+  }
+  if (page === "scan") {
+    return <CubeScanner onFinish={handleFinish}/>
+  }
+  return <ViewCube colors={cubeColors}/>
     // <>
     // {!cubeColors && <HomePage onStart={() => setCubeColors(defaultCube)}/>} 
     // {cubeColors && (
