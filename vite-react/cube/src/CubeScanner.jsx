@@ -36,13 +36,13 @@ const CubeScanner = ({onFinish}) => {
             <Webcam ref={webcamRef} width={1280} height={720} screenshotFormat="image/jpeg" style={{border: '2px solid white'}}/>
             <canvas ref = {canvasRef} width={1280} height={720} style ={{ display: 'none'}} />
 
-            <svg viewBox='0 0 1280 720' style={{position: 'absolute', top:0, left:0}}>
+            <svg viewBox='0 0 1280 720' style={{position: 'absolute', top:0, left:0, pointerEvents:'none'}}>
                 {gridPoints.map(([x, y], i) => (
                     <circle key = {i} cx={x} cy={y} r="5" fill="red"/>
                 ))}
             </svg>
 
-            <button onClick={capture} disabled={faces.length >=6} style={{position: 'absolute', bottom: 20,left: '50%', transform: 'translateX(-50%)', padding: '10px 20px', background: 'black', border: '2px solid black', borderRadius: '5px', cursor: 'pointer', zIndex: 10}}>
+            <button onClick={capture} disabled={faces.length >=6}>
                 Capture Face ({faces.length}/6)
             </button>
         </div>
